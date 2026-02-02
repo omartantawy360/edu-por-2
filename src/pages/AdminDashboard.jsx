@@ -54,8 +54,8 @@ const AdminDashboard = () => {
             )}
         >
             <Icon className="h-4 w-4 shrink-0" />
-            <span className="hidden xs:inline">{label}</span>
-            <span className="xs:hidden">{label === 'Competitions' ? 'Comps' : label}</span>
+            <span className="hidden sm:inline">{label}</span>
+            <span className="sm:hidden">{label === 'Competitions' ? 'Comps' : label}</span>
         </button>
     );
 
