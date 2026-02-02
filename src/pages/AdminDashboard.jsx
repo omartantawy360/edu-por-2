@@ -88,8 +88,8 @@ const AdminDashboard = () => {
                             
                             {showNotifications && (
                                 <>
-                                    <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none" onClick={() => setShowNotifications(false)}></div>
-                                    <div className="fixed top-20 left-4 right-4 z-50 md:absolute md:top-auto md:left-auto md:right-0 md:mt-2 md:w-80 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden animate-in fade-in slide-in-from-top-2 md:slide-in-from-top-1">
+                                    <div className="fixed inset-0 z-[90] bg-black/20 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none" onClick={() => setShowNotifications(false)}></div>
+                                    <div className="fixed top-20 left-4 right-4 z-[100] md:absolute md:top-auto md:left-auto md:right-0 md:mt-2 md:w-80 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden animate-in fade-in slide-in-from-top-2 md:slide-in-from-top-1">
                                         <div className="p-3 bg-slate-50 border-b border-slate-100 font-medium text-sm text-slate-700 flex justify-between items-center">
                                             Notifications
                                             <button onClick={() => setShowNotifications(false)} className="md:hidden p-1 hover:bg-slate-200 rounded">
