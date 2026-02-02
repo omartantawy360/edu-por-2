@@ -47,62 +47,77 @@ const AdminDashboard = () => {
         <button
             onClick={() => setActiveTab(id)}
             className={cn(
-                "flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md transition-all",
+                "flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-all w-full",
                 activeTab === id 
                     ? "bg-white text-primary-700 shadow-sm border border-slate-200" 
                     : "text-slate-500 hover:text-slate-700 hover:bg-slate-100"
             )}
         >
-            <Icon className="h-4 w-4" />
-            {label}
+            <Icon className="h-4 w-4 shrink-0" />
+            <span className="hidden xs:inline">{label}</span>
+            <span className="xs:hidden">{label === 'Competitions' ? 'Comps' : label}</span>
         </button>
     );
 
     return (
         <div className="space-y-6 relative">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <h1 className="text-2xl font-bold text-slate-900">Admin Dashboard</h1>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="flex items-center justify-between md:justify-start">
+                    <h1 className="text-2xl font-bold text-slate-900">Admin Dashboard</h1>
+                    {/* Mobile Notification Bell moved here for better access or keep it in the main bar? 
+                        Let's keep the user's design but center things. 
+                        Actually, typical mobile design: Title on left, actions on right?
+                        Or stacked. The previous design stacked.
+                    */}
+                </div>
                 
-                <div className="flex items-center gap-4">
-                    {/* Notifications */}
-                    <div className="relative">
-                        <button 
-                            className="p-2 text-slate-500 hover:bg-slate-100 rounded-full relative"
-                            onClick={() => setShowNotifications(!showNotifications)}
-                        >
-                            <Bell className="h-5 w-5" />
-                            {notifications.length > 0 && (
-                                <span className="absolute top-1.5 right-1.5 h-2 w-2 bg-red-500 rounded-full border border-white"></span>
-                            )}
-                        </button>
-                        
-                        {showNotifications && (
-                            <>
-                                <div className="fixed inset-0 z-40 bg-transparent" onClick={() => setShowNotifications(false)}></div>
-                                <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white rounded-lg shadow-xl border border-slate-200 z-50 overflow-hidden">
-                                    <div className="p-3 bg-slate-50 border-b border-slate-100 font-medium text-sm text-slate-700">Notifications</div>
-                                    <div className="max-h-64 overflow-y-auto">
-                                        {notifications.length === 0 ? (
-                                            <div className="p-4 text-center text-xs text-slate-500">No new notifications</div>
-                                        ) : (
-                                            notifications.map(n => (
-                                                <div key={n.id} className="p-3 border-b border-slate-50 hover:bg-slate-50 transition-colors">
-                                                    <p className="text-sm text-slate-800">{n.text}</p>
-                                                    <p className="text-xs text-slate-400 mt-1">{n.date}</p>
-                                                </div>
-                                            ))
-                                        )}
+                <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+                    <div className="flex w-full sm:w-auto items-center justify-between sm:justify-end gap-4">
+                         {/* Notifications */}
+                        <div className="relative shrink-0">
+                            <button 
+                                className="p-2 text-slate-500 hover:bg-slate-100 rounded-full relative"
+                                onClick={() => setShowNotifications(!showNotifications)}
+                            >
+                                <Bell className="h-5 w-5" />
+                                {notifications.length > 0 && (
+                                    <span className="absolute top-1.5 right-1.5 h-2 w-2 bg-red-500 rounded-full border border-white"></span>
+                                )}
+                            </button>
+                            
+                            {showNotifications && (
+                                <>
+                                    <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none" onClick={() => setShowNotifications(false)}></div>
+                                    <div className="fixed top-20 left-4 right-4 z-50 md:absolute md:top-auto md:left-auto md:right-0 md:mt-2 md:w-80 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden animate-in fade-in slide-in-from-top-2 md:slide-in-from-top-1">
+                                        <div className="p-3 bg-slate-50 border-b border-slate-100 font-medium text-sm text-slate-700 flex justify-between items-center">
+                                            Notifications
+                                            <button onClick={() => setShowNotifications(false)} className="md:hidden p-1 hover:bg-slate-200 rounded">
+                                                <X className="h-4 w-4 text-slate-500" />
+                                            </button>
+                                        </div>
+                                        <div className="max-h-[60vh] md:max-h-64 overflow-y-auto">
+                                            {notifications.length === 0 ? (
+                                                <div className="p-4 text-center text-xs text-slate-500">No new notifications</div>
+                                            ) : (
+                                                notifications.map(n => (
+                                                    <div key={n.id} className="p-3 border-b border-slate-50 hover:bg-slate-50 transition-colors">
+                                                        <p className="text-sm text-slate-800">{n.text}</p>
+                                                        <p className="text-xs text-slate-400 mt-1">{n.date}</p>
+                                                    </div>
+                                                ))
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            </>
-                        )}
-                    </div>
+                                </>
+                            )}
+                        </div>
 
-                    <div className="flex p-1 bg-slate-100/80 rounded-lg overflow-x-auto max-w-[200px] sm:max-w-none no-scrollbar">
-                        <TabButton id="overview" label="Overview" icon={FileText} />
-                        <TabButton id="students" label="Students" icon={Users} />
-                        <TabButton id="competitions" label="Competitions" icon={Trophy} />
+                        <div className="flex p-1 bg-slate-100/80 rounded-lg w-full sm:w-auto grid grid-cols-3 sm:flex">
+                            <TabButton id="overview" label="Overview" icon={FileText} />
+                            <TabButton id="students" label="Students" icon={Users} />
+                            <TabButton id="competitions" label="Competitions" icon={Trophy} />
+                        </div>
                     </div>
                 </div>
             </div>
