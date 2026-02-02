@@ -78,25 +78,28 @@ const AdminDashboard = () => {
                         </button>
                         
                         {showNotifications && (
-                            <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-slate-200 z-50 overflow-hidden">
-                                <div className="p-3 bg-slate-50 border-b border-slate-100 font-medium text-sm text-slate-700">Notifications</div>
-                                <div className="max-h-64 overflow-y-auto">
-                                    {notifications.length === 0 ? (
-                                        <div className="p-4 text-center text-xs text-slate-500">No new notifications</div>
-                                    ) : (
-                                        notifications.map(n => (
-                                            <div key={n.id} className="p-3 border-b border-slate-50 hover:bg-slate-50 transition-colors">
-                                                <p className="text-sm text-slate-800">{n.text}</p>
-                                                <p className="text-xs text-slate-400 mt-1">{n.date}</p>
-                                            </div>
-                                        ))
-                                    )}
+                            <>
+                                <div className="fixed inset-0 z-40 bg-transparent" onClick={() => setShowNotifications(false)}></div>
+                                <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white rounded-lg shadow-xl border border-slate-200 z-50 overflow-hidden">
+                                    <div className="p-3 bg-slate-50 border-b border-slate-100 font-medium text-sm text-slate-700">Notifications</div>
+                                    <div className="max-h-64 overflow-y-auto">
+                                        {notifications.length === 0 ? (
+                                            <div className="p-4 text-center text-xs text-slate-500">No new notifications</div>
+                                        ) : (
+                                            notifications.map(n => (
+                                                <div key={n.id} className="p-3 border-b border-slate-50 hover:bg-slate-50 transition-colors">
+                                                    <p className="text-sm text-slate-800">{n.text}</p>
+                                                    <p className="text-xs text-slate-400 mt-1">{n.date}</p>
+                                                </div>
+                                            ))
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
+                            </>
                         )}
                     </div>
 
-                    <div className="flex p-1 bg-slate-100/80 rounded-lg">
+                    <div className="flex p-1 bg-slate-100/80 rounded-lg overflow-x-auto max-w-[200px] sm:max-w-none no-scrollbar">
                         <TabButton id="overview" label="Overview" icon={FileText} />
                         <TabButton id="students" label="Students" icon={Users} />
                         <TabButton id="competitions" label="Competitions" icon={Trophy} />
@@ -135,7 +138,7 @@ const AdminDashboard = () => {
                                 <Button variant="ghost" size="sm" onClick={() => { setFilterGrade(''); setFilterCompetition(''); setFilterResult(''); }}>Reset</Button>
                             </div>
                         </CardHeader>
-                        <CardContent className="pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <select
                                 className="flex h-9 w-full rounded-md border border-slate-300 bg-white px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                                 value={filterCompetition}
@@ -171,9 +174,9 @@ const AdminDashboard = () => {
                                     <tr>
                                         <th className="px-6 py-3 font-semibold">ID & Name</th>
                                         <th className="px-6 py-3 font-semibold">Competition</th>
-                                        <th className="px-6 py-3 font-semibold">Stage</th>
+                                        <th className="px-6 py-3 font-semibold hidden md:table-cell">Stage</th>
                                         <th className="px-6 py-3 font-semibold">Status</th>
-                                        <th className="px-6 py-3 font-semibold">Result</th>
+                                        <th className="px-6 py-3 font-semibold hidden lg:table-cell">Result</th>
                                         <th className="px-6 py-3 font-semibold">Actions</th>
                                     </tr>
                                 </thead>
@@ -193,8 +196,8 @@ const AdminDashboard = () => {
                                                         <div>{student.name}</div>
                                                         <div className="text-xs text-slate-500 font-mono mt-0.5">{student.id}</div>
                                                     </td>
-                                                    <td className="px-6 py-4">{student.competition}</td>
-                                                    <td className="px-6 py-4">
+                                                    <td className="px-6 py-4 whitespace-nowrap">{student.competition}</td>
+                                                    <td className="px-6 py-4 hidden md:table-cell">
                                                         {competition && (
                                                             <select
                                                                 className="rounded border border-slate-200 bg-white text-xs py-1 pl-2 pr-6 focus:ring-1 focus:ring-primary-500"
@@ -217,7 +220,7 @@ const AdminDashboard = () => {
                                                             {student.status}
                                                         </Badge>
                                                     </td>
-                                                    <td className="px-6 py-4">
+                                                    <td className="px-6 py-4 hidden lg:table-cell">
                                                         <span className={cn(
                                                             "font-medium",
                                                             student.result === 'Passed' ? 'text-emerald-600' :
