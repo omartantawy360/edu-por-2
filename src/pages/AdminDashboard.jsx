@@ -5,6 +5,8 @@ import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 import { Users, Trophy, CheckCircle, XCircle, Calendar, FileText, Globe, Bell, Eye, X, Mail, School, BookOpen, MessageSquare, Send } from 'lucide-react';
 import { cn } from '../utils/cn';
+import CompetitionCard from '../components/ui/CompetitionCard';
+import ConfirmDialog from '../components/ui/ConfirmDialog';
 
 const AdminDashboard = () => {
     const { students, competitions, notifications, updateStudentStatus, updateStudentStage, setStudentResult, setStudentFeedback } = useApp();
@@ -14,6 +16,15 @@ const AdminDashboard = () => {
     
     // Feedback State
     const [feedback, setFeedback] = useState('');
+    
+    // Confirmation Dialog State
+    const [confirmDialog, setConfirmDialog] = useState({
+        isOpen: false,
+        title: '',
+        message: '',
+        onConfirm: () => {},
+        type: 'warning'
+    });
 
     // Filter states for Students Tab
     const [filterGrade, setFilterGrade] = useState('');
@@ -41,6 +52,47 @@ const AdminDashboard = () => {
         setFeedback('');
         // Close modal or show success? Let's just reset for now and maybe close
         setSelectedStudent(null);
+    };
+
+    // Confirmation handlers
+    const handleApprove = (student) => {
+        setConfirmDialog({
+            isOpen: true,
+            title: 'Approve Registration',
+            message: `Are you sure you want to approve ${student.name}'s registration for ${student.competition}? The student will be notified.`,
+            onConfirm: () => updateStudentStatus(student.id, 'Approved'),
+            type: 'success'
+        });
+    };
+
+    const handleReject = (student) => {
+        setConfirmDialog({
+            isOpen: true,
+            title: 'Reject Registration',
+            message: `Are you sure you want to reject ${student.name}'s registration for ${student.competition}? The student will be notified.`,
+            onConfirm: () => updateStudentStatus(student.id, 'Rejected'),
+            type: 'danger'
+        });
+    };
+
+    const handlePass = (student) => {
+        setConfirmDialog({
+            isOpen: true,
+            title: 'Mark as Passed',
+            message: `Are you sure you want to mark ${student.name} as PASSED for ${student.competition}? This action will notify the student.`,
+            onConfirm: () => setStudentResult(student.id, 'Passed'),
+            type: 'success'
+        });
+    };
+
+    const handleFail = (student) => {
+        setConfirmDialog({
+            isOpen: true,
+            title: 'Mark as Failed',
+            message: `Are you sure you want to mark ${student.name} as FAILED for ${student.competition}? This action will notify the student.`,
+            onConfirm: () => setStudentResult(student.id, 'Failed'),
+            type: 'danger'
+        });
     };
 
     const TabButton = ({ id, label, icon: Icon }) => (
@@ -251,14 +303,14 @@ const AdminDashboard = () => {
                                                             </Button>
                                                             {student.status === 'Pending' && (
                                                                 <div className="flex gap-1">
-                                                                    <Button size="sm" variant="ghost" className="h-7 px-2 flex-1 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50" onClick={() => updateStudentStatus(student.id, 'Approved')}>Approve</Button>
-                                                                    <Button size="sm" variant="ghost" className="h-7 px-2 flex-1 text-red-600 hover:text-red-700 hover:bg-red-50" onClick={() => updateStudentStatus(student.id, 'Rejected')}>Reject</Button>
+                                                                    <Button size="sm" variant="ghost" className="h-7 px-2 flex-1 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50" onClick={() => handleApprove(student)}>Approve</Button>
+                                                                    <Button size="sm" variant="ghost" className="h-7 px-2 flex-1 text-red-600 hover:text-red-700 hover:bg-red-50" onClick={() => handleReject(student)}>Reject</Button>
                                                                 </div>
                                                             )}
                                                             {student.status === 'Approved' && (
                                                                 <div className="flex gap-1">
-                                                                    <Button size="sm" variant="ghost" className="h-7 px-2 flex-1 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50" onClick={() => setStudentResult(student.id, 'Passed')}>Pass</Button>
-                                                                    <Button size="sm" variant="ghost" className="h-7 px-2 flex-1 text-red-600 hover:text-red-700 hover:bg-red-50" onClick={() => setStudentResult(student.id, 'Failed')}>Fail</Button>
+                                                                    <Button size="sm" variant="ghost" className="h-7 px-2 flex-1 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50" onClick={() => handlePass(student)}>Pass</Button>
+                                                                    <Button size="sm" variant="ghost" className="h-7 px-2 flex-1 text-red-600 hover:text-red-700 hover:bg-red-50" onClick={() => handleFail(student)}>Fail</Button>
                                                                 </div>
                                                             )}
                                                         </div>
@@ -277,37 +329,13 @@ const AdminDashboard = () => {
             {/* Competitions Tab */}
             {activeTab === 'competitions' && (
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {competitions.map((comp) => (
-                            <Card key={comp.id} className="hover:shadow-md transition-shadow">
-                                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                                    <div className="space-y-1">
-                                        <CardTitle className="text-lg">{comp.name}</CardTitle>
-                                        <div className="flex items-center gap-2">
-                                            <Badge variant={comp.type === 'Outer' ? 'default' : 'secondary'}>{comp.type}</Badge>
-                                            <span className="text-xs text-slate-500">Max: {comp.maxParticipants || 'Unlimited'}</span>
-                                        </div>
-                                    </div>
-                                    {comp.type === 'Outer' ? <Globe className="h-5 w-5 text-blue-500" /> : <Trophy className="h-5 w-5 text-purple-500" />}
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-sm text-slate-600 mb-4 line-clamp-2">{comp.description || 'No description provided.'}</p>
-                                    
-                                    <div className="space-y-2">
-                                        <div className="flex items-center text-xs text-slate-500">
-                                            <Calendar className="h-3.5 w-3.5 mr-2" />
-                                            {comp.startDate || 'TBD'} - {comp.endDate || 'TBD'}
-                                        </div>
-                                        <div className="flex flex-wrap gap-1 mt-2">
-                                             {comp.stages.map((stage, i) => (
-                                                <span key={i} className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] rounded-full uppercase tracking-wider font-semibold">
-                                                    {stage}
-                                                </span>
-                                             ))}
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                            <CompetitionCard
+                                key={comp.id}
+                                competition={comp}
+                                showActions={false}
+                            />
                         ))}
                     </div>
                 </div>
@@ -413,6 +441,18 @@ const AdminDashboard = () => {
                     </Card>
                  </div>
             )}
+            
+            {/* Confirmation Dialog */}
+            <ConfirmDialog
+                isOpen={confirmDialog.isOpen}
+                onClose={() => setConfirmDialog({ ...confirmDialog, isOpen: false })}
+                onConfirm={confirmDialog.onConfirm}
+                title={confirmDialog.title}
+                message={confirmDialog.message}
+                type={confirmDialog.type}
+                confirmText="Confirm"
+                cancelText="Cancel"
+            />
         </div>
     );
 };

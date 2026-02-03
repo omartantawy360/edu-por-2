@@ -1,0 +1,16 @@
+import React from 'react';
+import CertificateView from '../components/ui/CertificateView';
+
+const CertificatePage = () => {
+    return (
+        <div className="max-w-5xl mx-auto">
+            <div className="mb-6">
+                <h1 className="text-2xl font-bold text-slate-800">My Certificate</h1>
+                <p className="text-slate-500 mt-1">View and download your achievement certificate</p>
+            </div>
+            <CertificateView />
+        </div>
+    );
+};
+
+export default CertificatePage;

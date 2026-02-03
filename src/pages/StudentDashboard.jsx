@@ -1,12 +1,13 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
+import { Card, CardContent } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { Trophy, Clock, CheckCircle, Calendar, User, FileText, MessageSquare, School, Mail, BookOpen } from 'lucide-react';
+import { Trophy, Clock, CheckCircle, Calendar, User, MessageSquare, School, Mail, BookOpen, Bell } from 'lucide-react';
 import { cn } from '../utils/cn';
+import DeadlineTimer from '../components/ui/DeadlineTimer';
 
 const StudentDashboard = () => {
-    const { students } = useApp();
+    const { students, notifications } = useApp();
 
     // Mock Logged-in User - Dynamic Fetch
     const mockName = "Alice Johnson";
@@ -20,6 +21,12 @@ const StudentDashboard = () => {
 
     // Filter registrations for this specific student
     const myRegistrations = students.filter(s => s.name === mockName);
+
+    // Get current student ID
+    const studentId = myRegistrations[0]?.id;
+
+    // Filter notifications for this student or global ones
+    const myNotifications = notifications.filter(n => n.studentId === studentId || !n.studentId);
 
     const stats = [
         { 
@@ -62,6 +69,9 @@ const StudentDashboard = () => {
                 </div>
             </div>
 
+            {/* Deadline Timer - Prominent Position */}
+            <DeadlineTimer title="Science Fair Submission Deadline" />
+
             {/* Personal Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {stats.map((stat, i) => (
@@ -77,6 +87,51 @@ const StudentDashboard = () => {
                         </CardContent>
                     </Card>
                 ))}
+            </div>
+
+            {/* Notifications Section */}
+            <div className="space-y-4">
+                <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    <Bell className="h-5 w-5 text-primary-600" />
+                    Recent Notifications
+                </h2>
+                
+                {myNotifications.length === 0 ? (
+                    <Card className="bg-slate-50 border-dashed">
+                        <CardContent className="py-8 text-center text-slate-400 text-sm">
+                            No notifications to show.
+                        </CardContent>
+                    </Card>
+                ) : (
+                    <div className="grid grid-cols-1 gap-3">
+                        {myNotifications.slice(0, 3).map((n) => (
+                            <div key={n.id} className={cn(
+                                "flex items-start gap-3 p-4 rounded-xl border transition-all",
+                                n.type === 'success' ? 'bg-emerald-50 border-emerald-100' :
+                                n.type === 'warning' ? 'bg-amber-50 border-amber-100' :
+                                'bg-white border-slate-200'
+                            )}>
+                                <div className={cn(
+                                    "p-2 rounded-lg shrink-0",
+                                    n.type === 'success' ? 'bg-emerald-100 text-emerald-600' :
+                                    n.type === 'warning' ? 'bg-amber-100 text-amber-600' :
+                                    'bg-primary-100 text-primary-600'
+                                )}>
+                                    {n.type === 'success' ? <CheckCircle className="h-4 w-4" /> : <Bell className="h-4 w-4" />}
+                                </div>
+                                <div className="flex-1">
+                                    <p className={cn(
+                                        "text-sm font-medium",
+                                        n.type === 'success' ? 'text-emerald-900' :
+                                        n.type === 'warning' ? 'text-amber-900' :
+                                        'text-slate-900'
+                                    )}>{n.text}</p>
+                                    <p className="text-xs text-slate-500 mt-1">{n.date}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
 
             {/* My Competitions List */}

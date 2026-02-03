@@ -12,10 +12,9 @@ export const useApp = () => {
 
 export const AppProvider = ({ children }) => {
   // Mock Data
-  // Mock Data
   const generateMockStudents = () => {
-    const firstNames = ["Alice", "Bob", "Charlie", "Diana", "Evan", "Fiona", "George", "Hannah", "Ian", "Jack", "Karen", "Leo", "Mona", "Nathan", "Olivia", "Peter", "Quinn", "Rachel", "Steve", "Tony", "Ursula", "Victor", "Wanda", "Xander", "Yara", "Zack", "Liam", "Noah", "Oliver", "Elijah", "James", "William", "Benjamin", "Lucas", "Henry", "Alexander", "Mason", "Michael", "Ethan", "Daniel", "Jacob", "Logan", "Jackson", "Levi", "Sebastian", "Mateo", "Jack", "Owen", "Theodore", "Aiden"];
-    const lastNames = ["Johnson", "Smith", "Brown", "Prince", "Wright", "Gallagher", "Miller", "Montana", "Somerhalder", "Daniels", "Page", "Messi", "Lisa", "Drake", "Wilde", "Parker", "Fabray", "Green", "Rogers", "Stark", "Le Guin", "Hugo", "Maximoff", "Cage", "Greyjoy", "Snyder", "Wilson", "Thompson", "Evans", "Walker", "White", "Roberts", "Turner", "Phillips", "Campbell", "Parker", "Evans", "Edwards", "Collins", "Stewart", "Sanchez", "Morris", "Rogers", "Reed", "Cook", "Morgan", "Bell", "Murphy", "Bailey", "Rivera"];
+    const firstNames = ["Alice", "Bob", "Charlie", "Diana", "Evan", "Fiona", "George", "Hannah", "Ian", "Jack", "Karen", "Leo", "Mona", "Nathan", "Olivia", "Peter", "Quinn", "Rachel", "Steve", "Tony"];
+    const lastNames = ["Johnson", "Smith", "Brown", "Prince", "Wright", "Gallagher", "Miller", "Montana", "Somerhalder", "Daniels", "Page", "Messi", "Lisa", "Drake", "Wilde", "Parker", "Fabray", "Green", "Rogers", "Stark"];
     
     const schools = ["Lincoln High", "Washington Academy", "Roosevelt Prep", "Jefferson High", "Kennedy International"];
     const projectTitles = [
@@ -30,7 +29,7 @@ export const AppProvider = ({ children }) => {
     const statuses = ['Approved', 'Pending', 'Rejected'];
     const results = ['Passed', 'Failed', '-'];
     
-    return Array.from({ length: 50 }, (_, i) => {
+    return Array.from({ length: 20 }, (_, i) => {
       const firstName = firstNames[i % firstNames.length];
       const lastName = lastNames[i % lastNames.length];
       const fullName = `${firstName} ${lastName}`;
@@ -42,12 +41,11 @@ export const AppProvider = ({ children }) => {
         res = results[Math.floor(Math.random() * results.length)];
       }
 
-      // Consistent randomization based on index to ensure "random" data looks stable if regenerated (though here it's on mount)
       const school = schools[i % schools.length];
       const project = projectTitles[i % projectTitles.length];
       const mentor = mentors[i % mentors.length];
 
-      const isTeam = i % 5 === 0; // Every 5th student is a team
+      const isTeam = i % 5 === 0;
       const type = isTeam ? 'Team' : 'Individual';
       const members = isTeam ? [`${firstNames[(i + 1) % firstNames.length]}`, `${firstNames[(i + 2) % firstNames.length]}`].join(', ') : null;
 
@@ -73,14 +71,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const [students, setStudents] = useState(generateMockStudents());
-  const [notifications, setNotifications] = useState([
-      { id: 1, text: "New registration guidelines for ISEF 2024 available.", type: "info", date: "2024-02-01" },
-      { id: 2, text: "System maintenance scheduled for this weekend.", type: "warning", date: "2024-01-28" }
-  ]);
 
-  const addNotification = (text, type = "info") => {
-      setNotifications(prev => [{ id: Date.now(), text, type, date: new Date().toISOString().split('T')[0] }, ...prev]);
-  };
 
   const [competitions, setCompetitions] = useState([
     { 
@@ -127,13 +118,42 @@ export const AppProvider = ({ children }) => {
         id: 'c5', 
         name: 'ISEF', 
         stages: ['Local Qualifier', 'Regional', 'International Final'], 
-        description: 'International Science and Engineering Fair - The world’s largest international pre-college science competition.', 
+        description: 'International Science and Engineering Fair - The world\'s largest international pre-college science competition.', 
         type: 'Outer',
         startDate: '2024-05-11',
         endDate: '2024-05-17',
         maxParticipants: 1000
-    },
+    }
   ]);
+
+  // NEW: Submissions tracking
+  const [submissions, setSubmissions] = useState([
+    { id: 'sub-001', studentId: 'ST-001', competitionId: 'c2', title: 'Water Purification Project', url: 'https://github.com/alice/water-project', type: 'github', status: 'approved', date: '2024-01-15', feedback: 'Excellent research methodology!' },
+    { id: 'sub-002', studentId: 'ST-002', competitionId: 'c3', title: 'Algorithm Optimizer', url: 'https://github.com/bob/algo', type: 'github', status: 'pending', date: '2024-01-20', feedback: null },
+    { id: 'sub-003', studentId: 'ST-003', competitionId: 'c2', title: 'Solar Energy Research', url: 'https://docs.google.com/document', type: 'link', status: 'rejected', date: '2024-01-18', feedback: 'Needs more data analysis' },
+  ]);
+
+  // NEW: Certificates tracking
+  const [certificates, setCertificates] = useState([
+    { id: 'cert-001', studentId: 'ST-001', studentName: 'Alice Johnson', competitionId: 'c2', competitionName: 'Science Fair', achievement: 'First Place', date: '2024-02-01', issuedBy: 'Dr. John Smith' },
+  ]);
+
+  // NEW: Achievements/Badges tracking
+  const [achievements, setAchievements] = useState([
+    { id: 'ach-001', studentId: 'ST-001', badge: 'First Submission', description: 'Submitted first project', icon: '🎯', date: '2024-01-15', color: 'blue' },
+    { id: 'ach-002', studentId: 'ST-001', badge: 'Team Player', description: 'Collaborated with 5+ team members', icon: '🤝', date: '2024-01-20', color: 'green' },
+  ]);
+
+  const [notifications, setNotifications] = useState([
+    { id: 1, text: "New registration guidelines for ISEF 2024 available.", type: "info", date: "2024-02-01", studentId: "ST-001" },
+    { id: 2, text: "System maintenance scheduled for this weekend.", type: "warning", date: "2024-01-28" },
+    { id: 3, text: 'Welcome to the competition platform!', type: 'info', date: '2024-02-01', studentId: 'ST-001' },
+    { id: 4, text: 'Your abstract for Science Fair was reviewed.', type: 'success', date: '2024-02-02', studentId: 'ST-001' },
+  ]);
+
+  const addNotification = (text, type = "info", studentId = null) => {
+      setNotifications(prev => [{ id: Date.now(), text, type, date: new Date().toISOString().split('T')[0], studentId }, ...prev]);
+  };
 
   const addCompetition = (data) => {
       const newCompetition = {
@@ -157,7 +177,7 @@ export const AppProvider = ({ children }) => {
       status: 'Pending',
       result: '-',
       projectTitle: null,
-      school: 'Lincoln High', // Default
+      school: 'Lincoln High',
       email: `${data.name.split(' ')[0].toLowerCase()}@school.edu`
     };
     setStudents((prev) => [...prev, newStudent]);
@@ -166,26 +186,127 @@ export const AppProvider = ({ children }) => {
   };
 
   const updateStudentStatus = (id, status) => {
+    const student = students.find(s => s.id === id);
     setStudents((prev) => prev.map(s => {
         if (s.id === id) {
-             // Mock notification to student (conceptual)
              return { ...s, status };
         }
         return s;
     }));
+    
+    // Send notification to student
+    if (student) {
+      const statusMessage = status === 'Approved' 
+        ? `Your registration for ${student.competition} has been approved! 🎉`
+        : status === 'Rejected'
+        ? `Your registration for ${student.competition} has been rejected. Please contact admin for details.`
+        : `Your registration for ${student.competition} is pending review.`;
+      
+      addNotification(statusMessage, status === 'Approved' ? 'success' : status === 'Rejected' ? 'error' : 'info', id);
+    }
   };
 
   const updateStudentStage = (id, stage) => {
+    const student = students.find(s => s.id === id);
     setStudents((prev) => prev.map(s => s.id === id ? { ...s, stage } : s));
+    
+    // Notify student of stage change
+    if (student) {
+      addNotification(`You have progressed to ${stage} stage in ${student.competition}! 🚀`, 'info', id);
+    }
   };
 
   const setStudentResult = (id, result) => {
+    const student = students.find(s => s.id === id);
     setStudents((prev) => prev.map(s => s.id === id ? { ...s, result } : s));
+    
+    // Send notification to student
+    if (student) {
+      const resultMessage = result === 'Passed'
+        ? `Congratulations! You have passed ${student.competition}! 🎉🏆`
+        : `Unfortunately, you did not pass ${student.competition}. Keep trying! 💪`;
+      
+      addNotification(resultMessage, result === 'Passed' ? 'success' : 'error', id);
+    }
   };
 
   const setStudentFeedback = (id, feedback) => {
+      const student = students.find(s => s.id === id);
       setStudents((prev) => prev.map(s => s.id === id ? { ...s, feedback } : s));
-      addNotification(`Feedback sent to student ${id}`, "success");
+      
+      // Notify student of new feedback
+      if (student) {
+        addNotification(`You have received new feedback for ${student.competition} 💬`, 'info', id);
+      }
+  };
+
+  // NEW: Submission management functions
+  const addSubmission = (submission) => {
+    const newSubmission = {
+      id: `sub-${Date.now()}`,
+      date: new Date().toISOString().split('T')[0],
+      status: 'pending',
+      feedback: null,
+      ...submission
+    };
+    setSubmissions(prev => [...prev, newSubmission]);
+    addNotification(`New submission: ${submission.title}`, "info");
+    return newSubmission;
+  };
+
+  const updateSubmissionStatus = (id, status, feedback = null) => {
+    setSubmissions(prev => prev.map(sub => 
+      sub.id === id ? { ...sub, status, feedback } : sub
+    ));
+    addNotification(`Submission ${id} ${status}`, "success");
+  };
+
+  const getStudentSubmissions = (studentId) => {
+    return submissions.filter(sub => sub.studentId === studentId);
+  };
+
+  const getCompetitionSubmissions = (competitionId) => {
+    return submissions.filter(sub => sub.competitionId === competitionId);
+  };
+
+  // NEW: Certificate management functions
+  const issueCertificate = (certificateData) => {
+    const newCertificate = {
+      id: `cert-${Date.now()}`,
+      date: new Date().toISOString().split('T')[0],
+      issuedBy: 'Admin',
+      ...certificateData
+    };
+    setCertificates(prev => [...prev, newCertificate]);
+    addNotification(`Certificate issued to ${certificateData.studentName}`, "success");
+    return newCertificate;
+  };
+
+  const getStudentCertificates = (studentId) => {
+    return certificates.filter(cert => cert.studentId === studentId);
+  };
+
+  const getCompetitionCertificates = (competitionId) => {
+    return certificates.filter(cert => cert.competitionId === competitionId);
+  };
+
+  // NEW: Achievement/Badge management functions
+  const addAchievement = (achievementData) => {
+    const newAchievement = {
+      id: `ach-${Date.now()}`,
+      date: new Date().toISOString().split('T')[0],
+      ...achievementData
+    };
+    setAchievements(prev => [...prev, newAchievement]);
+    addNotification(`Achievement awarded to student`, 'success');
+  };
+
+  const getStudentAchievements = (studentId) => {
+    return achievements.filter(ach => ach.studentId === studentId);
+  };
+
+  const removeAchievement = (achievementId) => {
+    setAchievements(prev => prev.filter(ach => ach.id !== achievementId));
   };
 
   return (
@@ -193,13 +314,26 @@ export const AppProvider = ({ children }) => {
       students,
       competitions,
       notifications,
+      submissions,
+      certificates,
       addCompetition,
       registerStudent,
       updateStudentStatus,
       updateStudentStage,
       setStudentResult,
       addNotification,
-      setStudentFeedback
+      setStudentFeedback,
+      addSubmission,
+      updateSubmissionStatus,
+      getStudentSubmissions,
+      getCompetitionSubmissions,
+      issueCertificate,
+      getStudentCertificates,
+      getCompetitionCertificates,
+      achievements,
+      addAchievement,
+      getStudentAchievements,
+      removeAchievement
     }}>
       {children}
     </AppContext.Provider>

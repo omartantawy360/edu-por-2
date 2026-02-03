@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
@@ -10,16 +10,21 @@ import { Badge } from '../components/ui/Badge';
 const Register = () => {
     const { competitions, registerStudent } = useApp();
     const navigate = useNavigate();
+    const location = useLocation();
+    
+    // Check if competition was pre-selected from recommendations
+    const preSelectedCompetition = location.state?.selectedCompetition;
+    
     const [formData, setFormData] = useState({
         name: '',
         grade: '',
         clazz: '', 
-        competition: competitions[0]?.name || '',
+        competition: preSelectedCompetition?.name || competitions[0]?.name || '',
         type: 'Individual',
         members: ''
     });
 
-    const [selectedComp, setSelectedComp] = useState(competitions[0]);
+    const [selectedComp, setSelectedComp] = useState(preSelectedCompetition || competitions[0]);
 
     useEffect(() => {
         const comp = competitions.find(c => c.name === formData.competition);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { LayoutDashboard, LogOut, FileText, Settings, Award } from 'lucide-react';
+import { LayoutDashboard, LogOut, FileText, Settings, Award, Users, Target, Upload, Trophy, Medal, Lightbulb } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { cn } from '../../utils/cn';
 
@@ -11,10 +11,20 @@ const Sidebar = ({ isOpen, onClose }) => {
   const links = user?.role === 'admin'
     ? [
         { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
-        { name: 'Add Competition', path: '/admin/create-competition', icon: Award },
+        { name: 'Students', path: '/admin/students', icon: Users },
+        { name: 'Submissions', path: '/admin/submissions', icon: Upload },
+        { name: 'Certificates', path: '/admin/certificates', icon: Award },
+        { name: 'Add Competition', path: '/admin/create-competition', icon: Settings },
       ]
     : [
         { name: 'Dashboard', path: '/student', icon: LayoutDashboard },
+        { name: 'Team Hub', path: '/student/team', icon: Users },
+        { name: 'Competition Skills', path: '/student/skills', icon: Target },
+        { name: 'Submissions', path: '/student/submissions', icon: Upload },
+        { name: 'Achievements', path: '/student/achievements', icon: Medal },
+        { name: 'Leaderboard', path: '/student/leaderboard', icon: Trophy },
+        { name: 'Certificate', path: '/student/certificate', icon: Award },
+        { name: 'Find Competitions', path: '/student/recommendations', icon: Lightbulb },
         { name: 'Register', path: '/register', icon: FileText },
       ];
 
