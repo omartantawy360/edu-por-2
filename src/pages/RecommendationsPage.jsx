@@ -14,8 +14,8 @@ const RecommendationsPage = () => {
     return (
         <div className="max-w-5xl mx-auto">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-slate-800 mb-2">Find Competitions</h1>
-                <p className="text-slate-500">Discover exciting competitions and challenges</p>
+                <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-50 mb-2">Find Competitions</h1>
+                <p className="text-slate-500 dark:text-slate-400">Discover exciting competitions and challenges</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -30,7 +30,7 @@ const RecommendationsPage = () => {
             </div>
 
             {competitions.length === 0 && (
-                <div className="text-center py-12 text-slate-400">
+                <div className="text-center py-12 text-slate-400 dark:text-slate-500">
                     <p>No competitions available at the moment</p>
                 </div>
             )}

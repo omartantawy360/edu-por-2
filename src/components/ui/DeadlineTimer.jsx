@@ -38,10 +38,10 @@ const DeadlineTimer = ({ deadline = null, title = 'Competition Deadline' }) => {
     return (
         <div className={`rounded-xl shadow-sm border p-6 ${
             isExpired 
-                ? 'bg-slate-100 border-slate-300' 
+                ? 'bg-slate-100 dark:bg-slate-900 border-slate-300 dark:border-slate-700' 
                 : isUrgent 
-                    ? 'bg-gradient-to-br from-red-50 to-orange-50 border-red-200' 
-                    : 'bg-gradient-to-br from-primary-50 to-blue-50 border-primary-200'
+                    ? 'bg-gradient-to-br from-red-50 to-orange-50 border-red-200 dark:from-red-950/40 dark:to-orange-950/40 dark:border-red-800' 
+                    : 'bg-gradient-to-br from-primary-50 to-blue-50 border-primary-200 dark:from-primary-900/40 dark:to-blue-900/40 dark:border-primary-800'
         }`}>
             <div className="flex items-center gap-2 mb-4">
                 {isUrgent && !isExpired ? (
@@ -49,7 +49,7 @@ const DeadlineTimer = ({ deadline = null, title = 'Competition Deadline' }) => {
                 ) : (
                     <Clock className={isExpired ? 'text-slate-500' : 'text-primary-600'} size={20} />
                 )}
-                <h2 className={`text-lg font-bold ${isExpired ? 'text-slate-600' : 'text-slate-800'}`}>
+                <h2 className={`text-lg font-bold ${isExpired ? 'text-slate-600 dark:text-slate-400' : 'text-slate-800 dark:text-slate-50'}`}>
                     {title}
                 </h2>
             </div>

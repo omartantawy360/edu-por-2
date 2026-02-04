@@ -39,10 +39,10 @@ const Recommendations = ({ recommendations = [] }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
             <div className="flex items-center gap-2 mb-6">
                 <Lightbulb className="text-primary-600" size={20} />
-                <h2 className="text-lg font-bold text-slate-800">Recommended Competitions</h2>
+                <h2 className="text-lg font-bold text-slate-800 dark:text-slate-50">Recommended Competitions</h2>
             </div>
             
             <div className="space-y-4">
@@ -52,7 +52,7 @@ const Recommendations = ({ recommendations = [] }) => {
                     return (
                         <div 
                             key={rec.id} 
-                            className="p-4 rounded-lg border border-slate-100 hover:border-primary-200 hover:shadow-sm transition-all group"
+                            className="p-4 rounded-lg border border-slate-100 dark:border-slate-800 hover:border-primary-200 hover:shadow-sm transition-all group"
                         >
                             <div className="flex items-start gap-3">
                                 <div className="p-2 bg-primary-50 rounded-lg group-hover:bg-primary-100 transition-colors">
@@ -60,18 +60,18 @@ const Recommendations = ({ recommendations = [] }) => {
                                 </div>
                                 <div className="flex-1">
                                     <div className="flex items-start justify-between gap-2 mb-1">
-                                        <h3 className="text-sm font-semibold text-slate-800 group-hover:text-primary-700 transition-colors">
+                                        <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-50 group-hover:text-primary-700 transition-colors">
                                             {rec.title}
                                         </h3>
                                     </div>
-                                    <p className="text-xs text-slate-600 mb-2">{rec.description}</p>
+                                    <p className="text-xs text-slate-600 dark:text-slate-300 mb-2">{rec.description}</p>
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-2">
                                             <span className={`text-xs px-2 py-1 rounded-full font-medium ${getTypeColor(rec.type)}`}>
                                                 {rec.type.charAt(0).toUpperCase() + rec.type.slice(1)}
                                             </span>
-                                            <span className="text-xs text-slate-400">•</span>
-                                            <span className="text-xs text-slate-500">{rec.reason}</span>
+                                            <span className="text-xs text-slate-400 dark:text-slate-500">•</span>
+                                            <span className="text-xs text-slate-500 dark:text-slate-400">{rec.reason}</span>
                                         </div>
                                         {rec.competitionData && (
                                             <button

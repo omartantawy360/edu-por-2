@@ -30,9 +30,9 @@ const Leaderboard = ({ teams = [] }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
             <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-bold text-slate-800">Leaderboard</h2>
+                <h2 className="text-lg font-bold text-slate-800 dark:text-slate-50">Leaderboard</h2>
                 <Trophy className="text-primary-600" size={20} />
             </div>
             
@@ -42,8 +42,8 @@ const Leaderboard = ({ teams = [] }) => {
                     const RankIcon = rankConfig?.icon;
                     
                     return (
-                        <div 
-                            key={team.id} 
+                            <div 
+                                key={team.id} 
                             className={`flex items-center justify-between p-4 rounded-lg transition-all ${
                                 team.rank <= 3 
                                     ? 'bg-gradient-to-r from-primary-50 to-transparent border border-primary-100' 
@@ -58,13 +58,13 @@ const Leaderboard = ({ teams = [] }) => {
                                 </div>
                                 
                                 <div className="flex items-center gap-3 flex-1">
-                                    <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center text-xs font-bold text-primary-700">
+                                        <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center text-xs font-bold text-primary-700">
                                         {team.avatar}
                                     </div>
                                     <div>
-                                        <p className="text-sm font-semibold text-slate-800">{team.name}</p>
+                                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-50">{team.name}</p>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-xs text-slate-500">{team.score} pts</span>
+                                            <span className="text-xs text-slate-500 dark:text-slate-400">{team.score} pts</span>
                                             {team.change !== 0 && (
                                                 <span className={`flex items-center gap-1 text-xs font-medium ${
                                                     team.change > 0 ? 'text-green-600' : 'text-red-600'

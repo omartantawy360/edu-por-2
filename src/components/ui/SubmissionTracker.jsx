@@ -56,9 +56,9 @@ const SubmissionTracker = () => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
             <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-bold text-slate-800">Submission Tracker</h2>
+                <h2 className="text-lg font-bold text-slate-800 dark:text-slate-50">Submission Tracker</h2>
                 <button
                     onClick={() => setShowForm(!showForm)}
                     className="px-3 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium flex items-center gap-2"
@@ -72,7 +72,7 @@ const SubmissionTracker = () => {
             <div className="mb-4 flex items-center gap-2">
                 <Filter size={16} className="text-slate-400" />
                 <select
-                    className="px-3 py-1.5 border rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none"
+                    className="px-3 py-1.5 border rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                     value={filterCompetition}
                     onChange={(e) => setFilterCompetition(e.target.value)}
                 >
@@ -85,11 +85,11 @@ const SubmissionTracker = () => {
 
             {/* Add Submission Form */}
             {showForm && (
-                <form onSubmit={handleSubmit} className="mb-6 p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-3">
+                <form onSubmit={handleSubmit} className="mb-6 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 space-y-3">
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Competition</label>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Competition</label>
                         <select
-                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:outline-none"
+                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:outline-none dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                             value={formData.competitionId}
                             onChange={(e) => setFormData({...formData, competitionId: e.target.value})}
                             required
@@ -101,10 +101,10 @@ const SubmissionTracker = () => {
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Title</label>
                         <input
                             type="text"
-                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:outline-none"
+                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:outline-none dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                             value={formData.title}
                             onChange={(e) => setFormData({...formData, title: e.target.value})}
                             placeholder="Project title"
@@ -112,10 +112,10 @@ const SubmissionTracker = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">URL</label>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">URL</label>
                         <input
                             type="url"
-                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:outline-none"
+                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:outline-none dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                             value={formData.url}
                             onChange={(e) => setFormData({...formData, url: e.target.value})}
                             placeholder="https://github.com/..."
@@ -123,9 +123,9 @@ const SubmissionTracker = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Type</label>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Type</label>
                         <select
-                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:outline-none"
+                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:outline-none dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                             value={formData.type}
                             onChange={(e) => setFormData({...formData, type: e.target.value})}
                         >
@@ -137,7 +137,7 @@ const SubmissionTracker = () => {
                         <button
                             type="button"
                             onClick={() => setShowForm(false)}
-                            className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg"
+                            className="px-4 py-2 text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
                         >
                             Cancel
                         </button>
@@ -154,17 +154,17 @@ const SubmissionTracker = () => {
             {/* Submissions List */}
             <div className="space-y-3">
                 {filteredSubmissions.map((submission) => (
-                    <div 
+                        <div 
                         key={submission.id}
-                        className={`p-4 rounded-lg border ${getStatusColor(submission.status)}`}
+                        className={`p-4 rounded-lg border ${getStatusColor(submission.status)} dark:bg-slate-900`}
                     >
                         <div className="flex items-start justify-between mb-2">
-                            <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-1">
-                                    <h3 className="font-semibold text-slate-800">{submission.title}</h3>
+                                <div className="flex-1">
+                                        <div className="flex items-center gap-2 mb-1">
+                                    <h3 className="font-semibold text-slate-800 dark:text-slate-50">{submission.title}</h3>
                                     {getStatusIcon(submission.status)}
                                 </div>
-                                <p className="text-xs text-slate-600 mb-2">
+                                <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">
                                     {getCompetitionName(submission.competitionId)} • {submission.date}
                                 </p>
                                 <a
@@ -190,8 +190,8 @@ const SubmissionTracker = () => {
                     </div>
                 ))}
 
-                {filteredSubmissions.length === 0 && (
-                    <div className="text-center py-8 text-slate-400">
+                        {filteredSubmissions.length === 0 && (
+                    <div className="text-center py-8 text-slate-400 dark:text-slate-500">
                         <p>No submissions yet</p>
                     </div>
                 )}

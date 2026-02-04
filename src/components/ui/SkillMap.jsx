@@ -13,9 +13,9 @@ const SkillMap = ({ skills = [] }) => {
     const displaySkills = skills.length > 0 ? skills : defaultSkills;
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
             <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-bold text-slate-800">Competition Skills</h2>
+                <h2 className="text-lg font-bold text-slate-800 dark:text-slate-50">Competition Skills</h2>
                 <TrendingUp className="text-primary-600" size={20} />
             </div>
             
@@ -31,11 +31,11 @@ const SkillMap = ({ skills = [] }) => {
                                     <div className={`p-2 rounded-lg ${skill.color} bg-opacity-10`}>
                                         <Icon className={`${skill.color.replace('bg-', 'text-')} h-4 w-4`} />
                                     </div>
-                                    <span className="text-sm font-medium text-slate-700">{skill.name}</span>
+                                    <span className="text-sm font-medium text-slate-700 dark:text-slate-200">{skill.name}</span>
                                 </div>
-                                <span className="text-sm font-bold text-slate-800">{skill.level}/{skill.maxLevel}</span>
+                                <span className="text-sm font-bold text-slate-800 dark:text-slate-100">{skill.level}/{skill.maxLevel}</span>
                             </div>
-                            <div className="relative h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <div className="relative h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                                 <div 
                                     className={`absolute inset-y-0 left-0 ${skill.color} rounded-full transition-all duration-500`}
                                     style={{ width: `${percentage}%` }}

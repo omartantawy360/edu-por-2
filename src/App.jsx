@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { AppProvider } from './context/AppContext';
+import { AppProvider, useApp } from './context/AppContext';
 import { TeamProvider } from './context/TeamContext';
 import Login from './pages/Login';
 import DashboardLayout from './components/Layout/DashboardLayout';
@@ -19,6 +19,7 @@ import RecommendationsPage from './pages/RecommendationsPage';
 import StudentManagement from './pages/admin/StudentManagement';
 import SubmissionsOverview from './pages/admin/SubmissionsOverview';
 import CertificateManagement from './pages/admin/CertificateManagement';
+import UserSettingsPage from './pages/UserSettingsPage';
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
     const { user, loading } = useAuth();
@@ -54,6 +55,7 @@ function AppRoutes() {
         <Route path="leaderboard" element={<LeaderboardPage />} />
         <Route path="certificate" element={<CertificatePage />} />
         <Route path="recommendations" element={<RecommendationsPage />} />
+        <Route path="account" element={<UserSettingsPage />} />
       </Route>
 
       <Route path="/register" element={
@@ -75,22 +77,33 @@ function AppRoutes() {
         <Route path="students" element={<StudentManagement />} />
         <Route path="submissions" element={<SubmissionsOverview />} />
         <Route path="certificates" element={<CertificateManagement />} />
+        <Route path="account" element={<UserSettingsPage />} />
       </Route>
       
     </Routes>
   );
 }
 
+const ThemedApp = () => {
+  const { theme } = useApp();
+
+  return (
+    <div className={theme === 'dark' ? 'dark bg-slate-900 text-slate-100' : 'bg-slate-50 text-slate-900'}>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <AppRoutes />
+      </BrowserRouter>
+    </div>
+  );
+};
+
 export default function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <AuthProvider>
-        <AppProvider>
-            <TeamProvider>
-                <AppRoutes />
-            </TeamProvider>
-        </AppProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <AuthProvider>
+      <AppProvider>
+        <TeamProvider>
+          <ThemedApp />
+        </TeamProvider>
+      </AppProvider>
+    </AuthProvider>
   );
 }

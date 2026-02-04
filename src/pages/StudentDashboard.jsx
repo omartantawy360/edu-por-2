@@ -55,13 +55,13 @@ const StudentDashboard = () => {
     return (
         <div className="max-w-5xl mx-auto space-y-8">
             {/* Header / Welcome Profile */}
-            <div className="flex flex-col md:flex-row items-center md:items-center gap-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm text-center md:text-left">
+            <div className="flex flex-col md:flex-row items-center md:items-center gap-6 bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm text-center md:text-left">
                 <div className="h-20 w-20 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 shrink-0">
                     <User className="h-10 w-10" />
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-2xl font-bold text-slate-900">Welcome back, {profile.name}!</h1>
-                    <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-slate-500">
+                    <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-slate-500 dark:text-slate-300">
                         <span className="flex items-center gap-1.5"><School className="h-4 w-4" /> {profile.school}</span>
                         <span className="flex items-center gap-1.5"><Mail className="h-4 w-4" /> {profile.email}</span>
                         <span className="px-2 py-0.5 bg-slate-100 rounded text-slate-700 font-medium">Class {profile.clazz} • Grade {profile.grade}</span>

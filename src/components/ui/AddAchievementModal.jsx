@@ -32,16 +32,16 @@ const AddAchievementModal = ({ student, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={onClose}>
-            <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
-                <div className="sticky top-0 bg-white z-10 p-6 pb-4 border-b border-slate-100">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                <div className="sticky top-0 bg-white dark:bg-slate-900 z-10 p-6 pb-4 border-b border-slate-100 dark:border-slate-800">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="p-3 bg-primary-100 rounded-xl">
                                 <Sparkles className="text-primary-600" size={24} />
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold text-slate-800">Add Achievement</h3>
-                                <p className="text-sm text-slate-500">Award {student.name} a badge</p>
+                                <h3 className="text-xl font-bold text-slate-800 dark:text-slate-50">Add Achievement</h3>
+                                <p className="text-sm text-slate-500 dark:text-slate-400">Award {student.name} a badge</p>
                             </div>
                         </div>
                         <button
@@ -57,10 +57,10 @@ const AddAchievementModal = ({ student, onClose }) => {
 
                 <form onSubmit={handleSubmit} className="p-6 space-y-5">
                     <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-2">Badge Name *</label>
+                        <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Badge Name *</label>
                         <input
                             type="text"
-                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                             value={formData.badge}
                             onChange={(e) => setFormData({...formData, badge: e.target.value})}
                             placeholder="e.g., First Place Winner"
@@ -69,9 +69,9 @@ const AddAchievementModal = ({ student, onClose }) => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-2">Description *</label>
+                        <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Description *</label>
                         <textarea
-                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                             rows="3"
                             value={formData.description}
                             onChange={(e) => setFormData({...formData, description: e.target.value})}
@@ -81,7 +81,7 @@ const AddAchievementModal = ({ student, onClose }) => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-3">Select Icon *</label>
+                        <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-3">Select Icon *</label>
                         <div className="grid grid-cols-6 gap-2">
                             {iconOptions.map((icon) => (
                                 <button
@@ -101,7 +101,7 @@ const AddAchievementModal = ({ student, onClose }) => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-3">Badge Color *</label>
+                        <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-3">Badge Color *</label>
                         <div className="grid grid-cols-3 gap-2">
                             {colorOptions.map((color) => (
                                 <button
@@ -121,8 +121,8 @@ const AddAchievementModal = ({ student, onClose }) => {
                     </div>
 
                     {/* Preview */}
-                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                        <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Preview</p>
+                    <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+                        <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-2">Preview</p>
                         <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 ${
                             colorOptions.find(c => c.value === formData.color)?.class || 'bg-blue-100 text-blue-700 border-blue-200'
                         }`}>
@@ -135,7 +135,7 @@ const AddAchievementModal = ({ student, onClose }) => {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-6 py-3 text-slate-600 hover:bg-slate-100 rounded-xl font-medium transition-colors"
+                            className="px-6 py-3 text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl font-medium transition-colors"
                         >
                             Cancel
                         </button>

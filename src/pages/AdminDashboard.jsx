@@ -116,7 +116,7 @@ const AdminDashboard = () => {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center justify-between md:justify-start">
-                    <h1 className="text-2xl font-bold text-slate-900">Admin Dashboard</h1>
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50">Admin Dashboard</h1>
                     {/* Mobile Notification Bell moved here for better access or keep it in the main bar? 
                         Let's keep the user's design but center things. 
                         Actually, typical mobile design: Title on left, actions on right?
@@ -127,7 +127,7 @@ const AdminDashboard = () => {
                 <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
                     <div className="flex w-full sm:w-auto items-center justify-between sm:justify-end gap-4">
                          {/* Notifications */}
-                        <div className="relative shrink-0">
+                                <div className="relative shrink-0">
                             <button 
                                 className="p-2 text-slate-500 hover:bg-slate-100 rounded-full relative"
                                 onClick={() => setShowNotifications(!showNotifications)}
@@ -141,8 +141,8 @@ const AdminDashboard = () => {
                             {showNotifications && (
                                 <>
                                     <div className="fixed inset-0 z-[90] bg-black/20 backdrop-blur-sm lg:bg-transparent lg:backdrop-blur-none" onClick={() => setShowNotifications(false)}></div>
-                                    <div className="fixed top-20 left-4 right-4 z-[100] lg:absolute lg:top-auto lg:left-auto lg:right-0 lg:mt-2 lg:w-80 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden animate-in fade-in slide-in-from-top-2 lg:slide-in-from-top-1">
-                                        <div className="p-3 bg-slate-50 border-b border-slate-100 font-medium text-sm text-slate-700 flex justify-between items-center">
+                                    <div className="fixed top-20 left-4 right-4 z-[100] lg:absolute lg:top-auto lg:left-auto lg:right-0 lg:mt-2 lg:w-80 bg-white dark:bg-slate-900 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden animate-in fade-in slide-in-from-top-2 lg:slide-in-from-top-1">
+                                        <div className="p-3 bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 font-medium text-sm text-slate-700 dark:text-slate-200 flex justify-between items-center">
                                             Notifications
                                             <button onClick={() => setShowNotifications(false)} className="lg:hidden p-1 hover:bg-slate-200 rounded">
                                                 <X className="h-4 w-4 text-slate-500" />
@@ -153,9 +153,9 @@ const AdminDashboard = () => {
                                                 <div className="p-4 text-center text-xs text-slate-500">No new notifications</div>
                                             ) : (
                                                 notifications.map(n => (
-                                                    <div key={n.id} className="p-3 border-b border-slate-50 hover:bg-slate-50 transition-colors">
-                                                        <p className="text-sm text-slate-800">{n.text}</p>
-                                                        <p className="text-xs text-slate-400 mt-1">{n.date}</p>
+                                                    <div key={n.id} className="p-3 border-b border-slate-50 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                                        <p className="text-sm text-slate-800 dark:text-slate-100">{n.text}</p>
+                                                        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{n.date}</p>
                                                     </div>
                                                 ))
                                             )}
@@ -182,8 +182,8 @@ const AdminDashboard = () => {
                             <Card key={i}>
                                 <CardContent className="p-6 flex items-center justify-between">
                                     <div>
-                                        <p className="text-sm font-medium text-slate-500">{stat.title}</p>
-                                        <p className="text-3xl font-bold text-slate-900 mt-2">{stat.value}</p>
+                                        <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{stat.title}</p>
+                                        <p className="text-3xl font-bold text-slate-900 dark:text-slate-50 mt-2">{stat.value}</p>
                                     </div>
                                     <div className={cn("p-3 rounded-full", stat.bg, stat.color)}>
                                         <stat.icon className="h-6 w-6" />
@@ -199,7 +199,7 @@ const AdminDashboard = () => {
             {activeTab === 'students' && (
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
                      <Card>
-                        <CardHeader className="pb-3 border-b border-slate-100">
+                        <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
                             <div className="flex items-center justify-between">
                                 <CardTitle className="text-lg">Filter Students</CardTitle>
                                 <Button variant="ghost" size="sm" onClick={() => { setFilterGrade(''); setFilterCompetition(''); setFilterResult(''); }}>Reset</Button>
@@ -207,7 +207,7 @@ const AdminDashboard = () => {
                         </CardHeader>
                         <CardContent className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <select
-                                className="flex h-9 w-full rounded-md border border-slate-300 bg-white px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                className="flex h-9 w-full rounded-md border border-slate-300 bg-white px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                                 value={filterCompetition}
                                 onChange={(e) => setFilterCompetition(e.target.value)}
                             >
@@ -215,7 +215,7 @@ const AdminDashboard = () => {
                                 {competitions.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
                             </select>
                             <select
-                                className="flex h-9 w-full rounded-md border border-slate-300 bg-white px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                className="flex h-9 w-full rounded-md border border-slate-300 bg-white px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                                 value={filterGrade}
                                 onChange={(e) => setFilterGrade(e.target.value)}
                             >
@@ -223,7 +223,7 @@ const AdminDashboard = () => {
                                 {[9, 10, 11, 12].map(g => <option key={g} value={String(g)}>{g}th Grade</option>)}
                             </select>
                             <select
-                                className="flex h-9 w-full rounded-md border border-slate-300 bg-white px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                className="flex h-9 w-full rounded-md border border-slate-300 bg-white px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                                 value={filterResult}
                                 onChange={(e) => setFilterResult(e.target.value)}
                             >
@@ -237,7 +237,7 @@ const AdminDashboard = () => {
                     <Card className="overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left">
-                                <thead className="bg-slate-50 text-slate-500 uppercase border-b border-slate-200">
+                                <thead className="bg-slate-50 dark:bg-slate-900 text-slate-500 dark:text-slate-400 uppercase border-b border-slate-200 dark:border-slate-800">
                                     <tr>
                                         <th className="px-6 py-3 font-semibold">ID & Name</th>
                                         <th className="px-6 py-3 font-semibold">Competition</th>
@@ -247,10 +247,10 @@ const AdminDashboard = () => {
                                         <th className="px-6 py-3 font-semibold">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-slate-100 bg-white">
+                                <tbody className="divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900">
                                     {filteredStudents.length === 0 ? (
                                         <tr>
-                                            <td colSpan="6" className="px-6 py-12 text-center text-slate-400">
+                                            <td colSpan="6" className="px-6 py-12 text-center text-slate-400 dark:text-slate-500">
                                                 No students found matching filters
                                             </td>
                                         </tr>
@@ -258,16 +258,16 @@ const AdminDashboard = () => {
                                         filteredStudents.map((student) => {
                                             const competition = competitions.find(c => c.name === student.competition);
                                             return (
-                                                <tr key={student.id} className="hover:bg-slate-50/50 transition-colors">
-                                                    <td className="px-6 py-4 font-medium text-slate-900">
+                                                <tr key={student.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800 transition-colors">
+                                                    <td className="px-6 py-4 font-medium text-slate-900 dark:text-slate-50">
                                                         <div>{student.name}</div>
-                                                        <div className="text-xs text-slate-500 font-mono mt-0.5">{student.id}</div>
+                                                        <div className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">{student.id}</div>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">{student.competition}</td>
                                                     <td className="px-6 py-4 hidden md:table-cell">
                                                         {competition && (
                                                             <select
-                                                                className="rounded border border-slate-200 bg-white text-xs py-1 pl-2 pr-6 focus:ring-1 focus:ring-primary-500"
+                                                                className="rounded border border-slate-200 bg-white text-xs py-1 pl-2 pr-6 focus:ring-1 focus:ring-primary-500 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                                                                 value={student.stage}
                                                                 onChange={(e) => updateStudentStage(student.id, e.target.value)}
                                                             >

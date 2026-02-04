@@ -18,7 +18,7 @@ const CompetitionCard = ({ competition, onRegister, showActions = true }) => {
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-all duration-300">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl transition-all duration-300">
             {/* Cover Image */}
             <div className={`h-48 ${getTypeColor(competition.type)} relative`}>
                 {competition.coverImage ? (
@@ -45,20 +45,20 @@ const CompetitionCard = ({ competition, onRegister, showActions = true }) => {
             <div className="p-6">
                 {/* Header */}
                 <div className="mb-4">
-                    <h3 className="text-2xl font-bold text-slate-800 mb-2">{competition.name}</h3>
-                    <p className="text-slate-600 leading-relaxed">{competition.description}</p>
+                    <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-50 mb-2">{competition.name}</h3>
+                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{competition.description}</p>
                 </div>
 
                 {/* Meta Information */}
                 <div className="grid grid-cols-2 gap-3 mb-4">
-                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                    <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
                         <Calendar className="text-primary-600" size={16} />
                         <div>
                             <p className="font-medium text-slate-700">Start Date</p>
                             <p>{competition.startDate}</p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
                         <Users className="text-primary-600" size={16} />
                         <div>
                             <p className="font-medium text-slate-700">Max Participants</p>

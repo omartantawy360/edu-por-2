@@ -44,7 +44,7 @@ const Register = () => {
 
     return (
         <div className="max-w-6xl mx-auto space-y-6">
-            <h1 className="text-3xl font-bold text-slate-900">Registration</h1>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-50">Registration</h1>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Form Section */}
@@ -65,13 +65,13 @@ const Register = () => {
                                         required
                                     />
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-slate-700">Grade</label>
+                                        <label className="text-sm font-medium text-slate-700 dark:text-slate-200">Grade</label>
                                         <div className="relative">
                                             <select
                                                 name="grade"
                                                 value={formData.grade}
                                                 onChange={handleChange}
-                                                className="w-full flex h-10 items-center justify-between rounded-md border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                                className="w-full flex h-10 items-center justify-between rounded-md border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                                                 required
                                             >
                                                 <option value="">Select Grade</option>
@@ -88,24 +88,24 @@ const Register = () => {
                                         required
                                     />
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-slate-700">Select Competition</label>
+                                        <label className="text-sm font-medium text-slate-700 dark:text-slate-200">Select Competition</label>
                                         <select
                                             name="competition"
                                             value={formData.competition}
                                             onChange={handleChange}
-                                            className="w-full flex h-10 items-center justify-between rounded-md border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                            className="w-full flex h-10 items-center justify-between rounded-md border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                                         >
                                             {competitions.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
                                         </select>
                                     </div>
                                 </div>
 
-                                <div className="p-4 bg-slate-50 rounded-lg border border-slate-100 space-y-4">
-                                    <label className="text-sm font-medium text-slate-900 flex items-center gap-2">
+                                <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 space-y-4">
+                                    <label className="text-sm font-medium text-slate-900 dark:text-slate-100 flex items-center gap-2">
                                         <Users className="h-4 w-4" /> Participation Type
                                     </label>
                                     <div className="flex gap-6">
-                                        <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
+                                        <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200 cursor-pointer">
                                             <input
                                                 type="radio"
                                                 name="type"
@@ -116,7 +116,7 @@ const Register = () => {
                                             />
                                             Individual
                                         </label>
-                                        <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
+                                        <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200 cursor-pointer">
                                             <input
                                                 type="radio"
                                                 name="type"
@@ -139,7 +139,9 @@ const Register = () => {
                                                 placeholder="Enter full names, separated by commas"
                                                 required
                                             />
-                                            <p className="text-xs text-slate-500 mt-1">Include all members except yourself.</p>
+                                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                                Include all members except yourself.
+                                            </p>
                                         </div>
                                     )}
                                 </div>
@@ -201,7 +203,7 @@ const Register = () => {
                                 </CardContent>
                             </Card>
 
-                            <Card className="bg-amber-50 border-amber-200">
+                            <Card className="bg-amber-50 border-amber-200 dark:bg-amber-950/40 dark:border-amber-800">
                                 <CardContent className="p-4 flex gap-3">
                                     <AlertCircle className="h-5 w-5 text-amber-600 shrink-0" />
                                     <p className="text-sm text-amber-800">

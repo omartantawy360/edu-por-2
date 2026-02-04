@@ -53,21 +53,21 @@ const CompetitionLeaderboard = () => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                     <Trophy className="text-primary-600" size={24} />
-                    <h2 className="text-lg font-bold text-slate-800">Competition Leaderboard</h2>
+                    <h2 className="text-lg font-bold text-slate-800 dark:text-slate-50">Competition Leaderboard</h2>
                 </div>
             </div>
 
             {/* Competition Selector */}
             <div className="mb-6">
-                <label className="block text-sm font-medium text-slate-700 mb-2">Select Competition</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">Select Competition</label>
                 <div className="relative">
                     <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={18} />
                     <select
-                        className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
+                        className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                         value={selectedCompetition}
                         onChange={(e) => setSelectedCompetition(e.target.value)}
                     >
@@ -81,12 +81,12 @@ const CompetitionLeaderboard = () => {
 
             {/* Leaderboard Display */}
             {!selectedCompetition ? (
-                <div className="text-center py-12 text-slate-400">
+                <div className="text-center py-12 text-slate-400 dark:text-slate-500">
                     <Trophy size={48} className="mx-auto mb-3 opacity-30" />
                     <p>Select a competition to view leaderboard</p>
                 </div>
             ) : leaderboardData.length === 0 ? (
-                <div className="text-center py-12 text-slate-400">
+                <div className="text-center py-12 text-slate-400 dark:text-slate-500">
                     <p>No participants in this competition yet</p>
                 </div>
             ) : (
@@ -116,7 +116,7 @@ const CompetitionLeaderboard = () => {
                                             {student.avatar}
                                         </div>
                                         <div>
-                                            <p className="text-sm font-semibold text-slate-800">{student.name}</p>
+                                            <p className="text-sm font-semibold text-slate-800 dark:text-slate-50">{student.name}</p>
                                             <div className="flex items-center gap-2">
                                                 <span className={`text-xs font-medium ${
                                                     student.result === 'Passed' ? 'text-green-600' :
@@ -125,8 +125,8 @@ const CompetitionLeaderboard = () => {
                                                 }`}>
                                                     {student.result === '-' ? student.status : student.result}
                                                 </span>
-                                                <span className="text-xs text-slate-400">•</span>
-                                                <span className="text-xs text-slate-500">{student.stage}</span>
+                                                <span className="text-xs text-slate-400 dark:text-slate-500">•</span>
+                                                <span className="text-xs text-slate-500 dark:text-slate-400">{student.stage}</span>
                                             </div>
                                         </div>
                                     </div>

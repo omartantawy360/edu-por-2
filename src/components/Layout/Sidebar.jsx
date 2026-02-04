@@ -1,12 +1,20 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { LayoutDashboard, LogOut, FileText, Settings, Award, Users, Target, Upload, Trophy, Medal, Lightbulb } from 'lucide-react';
+import { LayoutDashboard, LogOut, FileText, Settings, Award, Users, Target, Upload, Trophy, Medal, Lightbulb, Moon, Sun } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { cn } from '../../utils/cn';
+import { useApp } from '../../context/AppContext';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const { theme, toggleTheme } = useApp();
+  const [isDarkSidebar, setIsDarkSidebar] = useState(false);
+
+  useEffect(() => {
+    setIsDarkSidebar(theme === 'dark');
+  }, [theme]);
 
   const links = user?.role === 'admin'
     ? [
@@ -41,14 +49,34 @@ const Sidebar = ({ isOpen, onClose }) => {
         )}
 
         <aside className={cn(
-            "fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-slate-200 bg-white transition-transform duration-300 ease-in-out md:static md:translate-x-0",
+            "fixed inset-y-0 left-0 z-50 flex w-64 flex-col transition-transform duration-300 ease-in-out md:static md:translate-x-0",
+            isDarkSidebar
+              ? "bg-slate-900 border-r border-slate-800 text-slate-100"
+              : "bg-white border-r border-slate-200 text-slate-900",
             isOpen ? "translate-x-0" : "-translate-x-full"
         )}>
-          <div className="flex h-16 items-center justify-between border-b border-slate-200 px-6">
-            <span className="text-xl font-bold text-primary-600">EduComp</span>
-            <Button variant="ghost" size="icon" className="md:hidden" onClick={onClose}>
-                <LogOut className="h-5 w-5 rotate-180" /> {/* Reusing LogOut icon as Close for simplicity, or use X */}
-            </Button>
+          <div className={cn(
+            "flex h-16 items-center justify-between px-6 border-b",
+            isDarkSidebar ? "border-slate-800" : "border-slate-200"
+          )}>
+            <span className="text-xl font-bold text-primary-500">EduComp</span>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hidden md:inline-flex"
+                onClick={toggleTheme}
+              >
+                {theme === 'dark' ? (
+                  <Sun className="h-5 w-5 text-amber-300" />
+                ) : (
+                  <Moon className="h-5 w-5 text-slate-600" />
+                )}
+              </Button>
+              <Button variant="ghost" size="icon" className="md:hidden" onClick={onClose}>
+                  <LogOut className="h-5 w-5 rotate-180" />
+              </Button>
+            </div>
           </div>
           <div className="flex flex-1 flex-col overflow-y-auto py-4">
             <nav className="flex-1 space-y-1 px-3">
@@ -58,8 +86,14 @@ const Sidebar = ({ isOpen, onClose }) => {
                         to={link.path}
                         onClick={onClose} // Close on link click (mobile)
                         className={({ isActive }) => cn(
-                            "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-slate-100 hover:text-slate-900",
-                            isActive ? "bg-primary-50 text-primary-700 hover:bg-primary-50 hover:text-primary-700" : "text-slate-700"
+                            "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                            isDarkSidebar
+                              ? "text-slate-200 hover:bg-slate-800 hover:text-slate-50"
+                              : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
+                            isActive &&
+                              (isDarkSidebar
+                                ? "bg-slate-800 text-primary-300"
+                                : "bg-primary-50 text-primary-700 hover:bg-primary-50 hover:text-primary-700")
                         )}
                     >
                         <link.icon className="h-4 w-4" />
@@ -67,16 +101,36 @@ const Sidebar = ({ isOpen, onClose }) => {
                     </NavLink>
                 ))}
             </nav>
-            <div className="border-t border-slate-200 p-4">
-                <div className="mb-4 flex items-center gap-3 px-2">
+            <div className={cn(
+              "border-t p-4",
+              isDarkSidebar ? "border-slate-800" : "border-slate-200"
+            )}>
+                <button
+                    type="button"
+                    onClick={() => {
+                        const accountPath = user.role === 'admin' ? '/admin/account' : '/student/account';
+                        navigate(accountPath);
+                        if (onClose) onClose();
+                    }}
+                    className={cn(
+                      "mb-4 flex w-full items-center gap-3 rounded-md px-2 py-1 transition-colors",
+                      isDarkSidebar ? "hover:bg-slate-800" : "hover:bg-slate-100"
+                    )}
+                >
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-100 text-primary-700 text-xs font-bold">
                         {user.name.charAt(0)}
                     </div>
                     <div>
-                        <p className="text-sm font-medium text-slate-700 truncate w-32">{user.name}</p>
-                        <p className="text-xs text-slate-500 capitalize">{user.role}</p>
+                        <p className={cn(
+                          "text-sm font-medium truncate w-32",
+                          isDarkSidebar ? "text-slate-100" : "text-slate-700"
+                        )}>{user.name}</p>
+                        <p className={cn(
+                          "text-xs capitalize",
+                          isDarkSidebar ? "text-slate-400" : "text-slate-500"
+                        )}>{user.role}</p>
                     </div>
-                </div>
+                </button>
                 <Button variant="ghost" className="w-full justify-start gap-2 text-red-600 hover:bg-red-50 hover:text-red-700" onClick={logout}>
                     <LogOut className="h-4 w-4" />
                     Sign Out

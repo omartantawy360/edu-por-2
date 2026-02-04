@@ -39,15 +39,15 @@ const ConfirmDialog = ({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl animate-in zoom-in-95 duration-200">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full shadow-2xl animate-in zoom-in-95 duration-200">
                 <div className="p-6">
                     <div className="flex items-start gap-4">
                         <div className={`p-3 rounded-full ${style.iconBg} shrink-0`}>
                             <Icon className={style.iconColor} size={24} />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-lg font-bold text-slate-800 mb-2">{title}</h3>
-                            <p className="text-slate-600 text-sm leading-relaxed">{message}</p>
+                            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-50 mb-2">{title}</h3>
+                            <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{message}</p>
                         </div>
                         <button
                             onClick={onClose}

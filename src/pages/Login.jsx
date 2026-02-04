@@ -11,8 +11,8 @@ const Login = () => {
 
     useEffect(() => {
         if (user) {
-            if (user.role === 'admin') navigate('/admin');
-            else navigate('/student');
+            if (user.role === 'admin') navigate('/admin', { replace: true });
+            else navigate('/student', { replace: true });
         }
     }, [user, navigate]);
 
@@ -21,14 +21,16 @@ const Login = () => {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
-            <Card className="w-full max-w-md shadow-lg border-t-4 border-t-primary-500">
+        <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-900 p-4">
+            <Card className="w-full max-w-md shadow-lg border-t-4 border-t-primary-500 dark:border-slate-700">
                 <CardHeader className="text-center pb-2">
-                    <CardTitle className="text-3xl font-bold text-gray-900">EduComp</CardTitle>
-                    <p className="text-slate-500 mt-2">Competition Management Platform</p>
+                    <CardTitle className="text-3xl font-bold text-gray-900 dark:text-slate-50">EduComp</CardTitle>
+                    <p className="text-slate-500 dark:text-slate-400 mt-2">Competition Management Platform</p>
                 </CardHeader>
                 <CardContent className="space-y-6 pt-6">
-                    <p className="text-center text-sm font-medium text-slate-600 mb-2">Select your role to sign in</p>
+                    <p className="text-center text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">
+                        Select your role to sign in
+                    </p>
                     <div className="grid gap-4">
                         <Button
                              variant="secondary"

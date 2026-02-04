@@ -3,11 +3,11 @@ import { cn } from '../../utils/cn';
 
 const Button = React.forwardRef(({ className, variant = 'primary', size = 'default', ...props }, ref) => {
   const variants = {
-    primary: 'bg-primary-600 text-white hover:bg-primary-700 shadow-sm',
-    secondary: 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 shadow-sm',
+    primary: 'bg-primary-600 text-white hover:bg-primary-700 shadow-sm dark:bg-primary-500 dark:hover:bg-primary-600',
+    secondary: 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 shadow-sm dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700 dark:hover:bg-slate-700',
     destructive: 'bg-red-600 text-white hover:bg-red-700 shadow-sm',
-    ghost: 'hover:bg-slate-100 text-slate-700',
-    link: 'text-primary-600 underline-offset-4 hover:underline',
+    ghost: 'hover:bg-slate-100 text-slate-700 dark:text-slate-100 dark:hover:bg-slate-800',
+    link: 'text-primary-600 underline-offset-4 hover:underline dark:text-primary-300',
   };
 
   const sizes = {
@@ -20,7 +20,7 @@ const Button = React.forwardRef(({ className, variant = 'primary', size = 'defau
   return (
     <button
       className={cn(
-        'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+        'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-900',
         variants[variant],
         sizes[size],
         className

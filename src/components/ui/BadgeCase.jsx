@@ -15,9 +15,9 @@ const BadgeCase = ({ badges = [] }) => {
     const displayBadges = badges.length > 0 ? badges : defaultBadges;
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
             <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-bold text-slate-800">Achievement Badges</h2>
+                <h2 className="text-lg font-bold text-slate-800 dark:text-slate-50">Achievement Badges</h2>
                 <div className="flex items-center gap-1">
                     <Trophy className="text-primary-600" size={18} />
                     <span className="text-sm font-bold text-primary-600">

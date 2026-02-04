@@ -8,12 +8,12 @@ const DashboardLayout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
-        <div className="flex h-screen bg-slate-50 overflow-hidden">
+        <div className="flex h-screen bg-slate-50 dark:bg-slate-900 overflow-hidden">
             <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             
             <div className="flex-1 flex flex-col h-screen overflow-hidden">
                 {/* Mobile Header */}
-                <div className="md:hidden flex items-center p-4 border-b border-slate-200 bg-white">
+                <div className="md:hidden flex items-center p-4 border-b border-slate-200 bg-white dark:bg-slate-900 dark:border-slate-800">
                     <Button variant="ghost" size="icon" onClick={() => setIsSidebarOpen(true)}>
                         <Menu className="h-6 w-6" />
                     </Button>

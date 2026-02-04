@@ -31,17 +31,19 @@ const SubmissionsOverview = () => {
     return (
         <div className="max-w-7xl mx-auto space-y-6">
             <div>
-                <h1 className="text-2xl font-bold text-slate-800">Submissions Overview</h1>
-                <p className="text-slate-500 mt-1">Review and manage student submissions</p>
+                <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-50">Submissions Overview</h1>
+                <p className="text-slate-500 dark:text-slate-400 mt-1">Review and manage student submissions</p>
             </div>
 
             {/* Filter Tabs */}
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-4">
                 <div className="flex gap-2">
                     <button
                         onClick={() => setFilter('all')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                            filter === 'all' ? 'bg-primary-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                            filter === 'all'
+                                ? 'bg-primary-600 text-white'
+                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
                         }`}
                     >
                         All ({submissions.length})
@@ -49,7 +51,9 @@ const SubmissionsOverview = () => {
                     <button
                         onClick={() => setFilter('pending')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                            filter === 'pending' ? 'bg-yellow-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                            filter === 'pending'
+                                ? 'bg-yellow-600 text-white'
+                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
                         }`}
                     >
                         Pending ({submissions.filter(s => s.status === 'pending').length})
@@ -57,7 +61,9 @@ const SubmissionsOverview = () => {
                     <button
                         onClick={() => setFilter('approved')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                            filter === 'approved' ? 'bg-green-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                            filter === 'approved'
+                                ? 'bg-green-600 text-white'
+                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
                         }`}
                     >
                         Approved ({submissions.filter(s => s.status === 'approved').length})
@@ -65,7 +71,9 @@ const SubmissionsOverview = () => {
                     <button
                         onClick={() => setFilter('rejected')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                            filter === 'rejected' ? 'bg-red-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                            filter === 'rejected'
+                                ? 'bg-red-600 text-white'
+                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
                         }`}
                     >
                         Rejected ({submissions.filter(s => s.status === 'rejected').length})
@@ -80,11 +88,11 @@ const SubmissionsOverview = () => {
                     const competition = getCompetition(submission.competitionId);
 
                     return (
-                        <div key={submission.id} className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                        <div key={submission.id} className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
                             <div className="flex items-start justify-between">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-3 mb-2">
-                                        <h3 className="text-lg font-bold text-slate-800">{submission.title}</h3>
+                                        <h3 className="text-lg font-bold text-slate-800 dark:text-slate-50">{submission.title}</h3>
                                         <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                                             submission.status === 'approved' ? 'bg-green-100 text-green-700' :
                                             submission.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
@@ -99,20 +107,20 @@ const SubmissionsOverview = () => {
                                     
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-3">
                                         <div>
-                                            <p className="text-slate-500">Student</p>
-                                            <p className="font-medium text-slate-800">{student?.name || 'Unknown'}</p>
+                                            <p className="text-slate-500 dark:text-slate-400">Student</p>
+                                            <p className="font-medium text-slate-800 dark:text-slate-50">{student?.name || 'Unknown'}</p>
                                         </div>
                                         <div>
-                                            <p className="text-slate-500">Competition</p>
-                                            <p className="font-medium text-slate-800">{competition?.name || 'Unknown'}</p>
+                                            <p className="text-slate-500 dark:text-slate-400">Competition</p>
+                                            <p className="font-medium text-slate-800 dark:text-slate-50">{competition?.name || 'Unknown'}</p>
                                         </div>
                                         <div>
-                                            <p className="text-slate-500">Submitted</p>
-                                            <p className="font-medium text-slate-800">{submission.date}</p>
+                                            <p className="text-slate-500 dark:text-slate-400">Submitted</p>
+                                            <p className="font-medium text-slate-800 dark:text-slate-50">{submission.date}</p>
                                         </div>
                                         <div>
-                                            <p className="text-slate-500">Type</p>
-                                            <p className="font-medium text-slate-800 flex items-center gap-1">
+                                            <p className="text-slate-500 dark:text-slate-400">Type</p>
+                                            <p className="font-medium text-slate-800 dark:text-slate-50 flex items-center gap-1">
                                                 {submission.type === 'github' ? <Github size={14} /> : <ExternalLink size={14} />}
                                                 {submission.type}
                                             </p>
@@ -129,11 +137,11 @@ const SubmissionsOverview = () => {
                                     </a>
 
                                     {submission.feedback && (
-                                        <div className="mt-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
-                                            <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">
+                                        <div className="mt-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1 flex items-center gap-1">
                                                 <MessageSquare size={12} /> Feedback
                                             </p>
-                                            <p className="text-sm text-slate-700">{submission.feedback}</p>
+                                            <p className="text-sm text-slate-700 dark:text-slate-200">{submission.feedback}</p>
                                         </div>
                                     )}
                                 </div>
@@ -154,8 +162,8 @@ const SubmissionsOverview = () => {
                 })}
 
                 {filteredSubmissions.length === 0 && (
-                    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
-                        <p className="text-slate-400">No submissions found</p>
+                    <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-12 text-center">
+                        <p className="text-slate-400 dark:text-slate-500">No submissions found</p>
                     </div>
                 )}
             </div>
@@ -163,21 +171,21 @@ const SubmissionsOverview = () => {
             {/* Review Modal */}
             {selectedSubmission && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-xl max-w-lg w-full p-6">
-                        <h3 className="text-lg font-bold text-slate-800 mb-4">Review Submission</h3>
+                    <div className="bg-white dark:bg-slate-900 rounded-xl max-w-lg w-full p-6">
+                        <h3 className="text-lg font-bold text-slate-800 dark:text-slate-50 mb-4">Review Submission</h3>
                         <div className="space-y-4">
                             <div>
-                                <p className="text-sm font-medium text-slate-700">Title</p>
-                                <p className="text-slate-900">{selectedSubmission.title}</p>
+                                <p className="text-sm font-medium text-slate-700 dark:text-slate-200">Title</p>
+                                <p className="text-slate-900 dark:text-slate-50">{selectedSubmission.title}</p>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-slate-700">Student</p>
-                                <p className="text-slate-900">{getStudent(selectedSubmission.studentId)?.name}</p>
+                                <p className="text-sm font-medium text-slate-700 dark:text-slate-200">Student</p>
+                                <p className="text-slate-900 dark:text-slate-50">{getStudent(selectedSubmission.studentId)?.name}</p>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-2">Feedback</label>
+                                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">Feedback</label>
                                 <textarea
-                                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:outline-none"
+                                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:outline-none dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
                                     rows="4"
                                     placeholder="Provide feedback for the student..."
                                     value={feedbackText}
@@ -190,7 +198,7 @@ const SubmissionsOverview = () => {
                                         setSelectedSubmission(null);
                                         setFeedbackText('');
                                     }}
-                                    className="px-4 py-2 text-slate-600 hover:bg-slate-50 rounded-lg"
+                                    className="px-4 py-2 text-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg"
                                 >
                                     Cancel
                                 </button>

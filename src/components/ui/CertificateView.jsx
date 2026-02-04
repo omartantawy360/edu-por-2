@@ -19,10 +19,10 @@ const CertificateView = () => {
 
     if (certificates.length === 0) {
         return (
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
-                <Award className="mx-auto text-slate-300 mb-3" size={48} />
-                <h3 className="text-lg font-semibold text-slate-700 mb-2">No Certificates Yet</h3>
-                <p className="text-slate-500">Complete competitions to earn certificates!</p>
+            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-12 text-center">
+                <Award className="mx-auto text-slate-300 dark:text-slate-600 mb-3" size={48} />
+                <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-50 mb-2">No Certificates Yet</h3>
+                <p className="text-slate-500 dark:text-slate-400">Complete competitions to earn certificates!</p>
             </div>
         );
     }
@@ -30,7 +30,7 @@ const CertificateView = () => {
     return (
         <div className="space-y-6">
             {certificates.map((cert) => (
-                <div key={cert.id} className="bg-white rounded-xl shadow-lg border-2 border-slate-200 overflow-hidden">
+                <div key={cert.id} className="bg-white dark:bg-slate-900 rounded-xl shadow-lg border-2 border-slate-200 dark:border-slate-700 overflow-hidden">
                     {/* Certificate Design */}
                     <div className="relative bg-gradient-to-br from-primary-50 via-white to-primary-50 p-12">
                         {/* Decorative Corners */}

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AppContext = createContext(null);
 
@@ -11,6 +11,29 @@ export const useApp = () => {
 };
 
 export const AppProvider = ({ children }) => {
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === 'undefined') return 'light';
+    const saved = window.localStorage.getItem('edu-theme');
+    return saved === 'dark' || saved === 'light' ? saved : 'light';
+  });
+
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem('edu-theme', next);
+        document.documentElement.classList.toggle('dark', next === 'dark');
+      }
+      return next;
+    });
+  };
+
   // Mock Data
   const generateMockStudents = () => {
     const firstNames = ["Alice", "Bob", "Charlie", "Diana", "Evan", "Fiona", "George", "Hannah", "Ian", "Jack", "Karen", "Leo", "Mona", "Nathan", "Olivia", "Peter", "Quinn", "Rachel", "Steve", "Tony"];
@@ -311,6 +334,8 @@ export const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{
+      theme,
+      toggleTheme,
       students,
       competitions,
       notifications,
