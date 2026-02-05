@@ -4,7 +4,18 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-100;
+    @apply bg-slate-50 text-slate-900 antialiased dark:bg-slate-900 dark:text-white;
+  }
+  
+  /* Apply white text color to all text elements in dark mode */
+  .dark {
+    @apply text-white;
+    color: white;
+  }
+  
+  .dark p, .dark span, .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+  .dark a, .dark label, .dark button, .dark input, .dark textarea {
+    @apply text-white;
   }
 }
 

@@ -97,8 +97,8 @@ const StudentDashboard = () => {
                 </h2>
                 
                 {myNotifications.length === 0 ? (
-                    <Card className="bg-slate-50 border-dashed">
-                        <CardContent className="py-8 text-center text-slate-400 text-sm">
+                    <Card className="bg-slate-50 dark:bg-slate-800 border-dashed">
+                        <CardContent className="py-8 text-center text-slate-400 dark:text-slate-500 text-sm">
                             No notifications to show.
                         </CardContent>
                     </Card>
@@ -107,9 +107,9 @@ const StudentDashboard = () => {
                         {myNotifications.slice(0, 3).map((n) => (
                             <div key={n.id} className={cn(
                                 "flex items-start gap-3 p-4 rounded-xl border transition-all",
-                                n.type === 'success' ? 'bg-emerald-50 border-emerald-100' :
-                                n.type === 'warning' ? 'bg-amber-50 border-amber-100' :
-                                'bg-white border-slate-200'
+                                n.type === 'success' ? 'bg-emerald-50 dark:bg-emerald-950 border-emerald-100 dark:border-emerald-800' :
+                                n.type === 'warning' ? 'bg-amber-50 dark:bg-amber-950 border-amber-100 dark:border-amber-800' :
+                                'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700'
                             )}>
                                 <div className={cn(
                                     "p-2 rounded-lg shrink-0",
@@ -122,11 +122,11 @@ const StudentDashboard = () => {
                                 <div className="flex-1">
                                     <p className={cn(
                                         "text-sm font-medium",
-                                        n.type === 'success' ? 'text-emerald-900' :
-                                        n.type === 'warning' ? 'text-amber-900' :
-                                        'text-slate-900'
+                                        n.type === 'success' ? 'text-emerald-900 dark:text-emerald-100' :
+                                        n.type === 'warning' ? 'text-amber-900 dark:text-amber-100' :
+                                        'text-slate-900 dark:text-slate-100'
                                     )}>{n.text}</p>
-                                    <p className="text-xs text-slate-500 mt-1">{n.date}</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{n.date}</p>
                                 </div>
                             </div>
                         ))}
@@ -139,9 +139,9 @@ const StudentDashboard = () => {
                 <h2 className="text-xl font-bold text-slate-900">My Competitions</h2>
                 
                 {myRegistrations.length === 0 ? (
-                    <Card className="bg-slate-50 border-dashed">
-                        <CardContent className="py-12 text-center text-slate-500">
-                            <Trophy className="h-12 w-12 mx-auto text-slate-300 mb-3" />
+                    <Card className="bg-slate-50 dark:bg-slate-800 border-dashed">
+                        <CardContent className="py-12 text-center text-slate-500 dark:text-slate-400">
+                            <Trophy className="h-12 w-12 mx-auto text-slate-300 dark:text-slate-600 mb-3" />
                             <p>You haven't registered for any competitions yet.</p>
                         </CardContent>
                     </Card>
@@ -151,7 +151,7 @@ const StudentDashboard = () => {
                             <Card key={reg.id} className="hover:border-primary-200 transition-all shadow-sm hover:shadow-md group overflow-hidden">
                                 <CardContent className="p-0">
                                     {/* Project Header */}
-                                    <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-50">
+                                    <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-700">
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2">
                                                 <h3 className="font-bold text-lg text-slate-900 group-hover:text-primary-600 transition-colors">
@@ -190,32 +190,32 @@ const StudentDashboard = () => {
                                     </div>
 
                                     {/* Expanded Details */}
-                                    <div className="p-6 bg-slate-50/50 space-y-4">
+                                    <div className="p-6 bg-slate-50/50 dark:bg-slate-800/50 space-y-4">
                                         {/* Project Info */}
                                         {reg.projectTitle && (
                                             <div className="flex gap-4">
                                                 <div className="mt-1"><BookOpen className="h-5 w-5 text-primary-500" /></div>
                                                 <div className="space-y-1">
-                                                    <h4 className="font-semibold text-slate-900 text-sm">Project: {reg.projectTitle}</h4>
-                                                    <p className="text-sm text-slate-600 leading-relaxed">{reg.abstract}</p>
-                                                    {reg.mentor && <p className="text-xs text-slate-400 mt-2">Mentor: {reg.mentor}</p>}
+                                                    <h4 className="font-semibold text-slate-900 dark:text-slate-100 text-sm">Project: {reg.projectTitle}</h4>
+                                                    <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{reg.abstract}</p>
+                                                    {reg.mentor && <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">Mentor: {reg.mentor}</p>}
                                                 </div>
                                             </div>
                                         )}
                                         
                                         {/* Feedback Info */}
                                         {reg.feedback && (
-                                            <div className="flex gap-4 p-4 bg-amber-50 rounded-lg border border-amber-100">
-                                                <div className="mt-1"><MessageSquare className="h-5 w-5 text-amber-500" /></div>
+                                            <div className="flex gap-4 p-4 bg-amber-50 dark:bg-amber-950 rounded-lg border border-amber-100 dark:border-amber-800">
+                                                <div className="mt-1"><MessageSquare className="h-5 w-5 text-amber-500 dark:text-amber-400" /></div>
                                                 <div className="space-y-1">
-                                                    <h4 className="font-semibold text-amber-900 text-sm">Judge Feedback</h4>
-                                                    <p className="text-sm text-amber-800 italic">"{reg.feedback}"</p>
+                                                    <h4 className="font-semibold text-amber-900 dark:text-amber-100 text-sm">Judge Feedback</h4>
+                                                    <p className="text-sm text-amber-800 dark:text-amber-200 italic">"{reg.feedback}"</p>
                                                 </div>
                                             </div>
                                         )}
                                         
                                         {!reg.projectTitle && !reg.feedback && (
-                                            <div className="text-sm text-slate-400 italic pl-9">No additional details available for this entry.</div>
+                                            <div className="text-sm text-slate-400 dark:text-slate-500 italic pl-9">No additional details available for this entry.</div>
                                         )}
                                     </div>
                                 </CardContent>
